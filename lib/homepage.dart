@@ -27,6 +27,7 @@ class _HomepageState extends State<Homepage> {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
+                  // other TextField properties
             ),
             onChanged: (String text) {
               setState(() {
@@ -36,7 +37,6 @@ class _HomepageState extends State<Homepage> {
               }
               );
             },
-
           ),
         ),
       backgroundColor: Colors.black,

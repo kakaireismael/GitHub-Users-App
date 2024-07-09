@@ -16,11 +16,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,; initialRoute: '/', // Set initial route to '/'
-  routes: {
-    '/': (context) => const WelcomePage(), // Map '/' route to FirstPage
-    '/second': (context) => const Homepage(), // Map '/second' route to SecondPage
-    };
+      debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+  routes: <String, WidgetBuilder>{
+    '/': (context) => const WelcomePage(),
+    '/second': (context) => const Homepage(),
+     }
       );
   }
 }

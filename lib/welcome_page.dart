@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:githubusers/homepage.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -24,11 +25,13 @@ class WelcomePage extends StatelessWidget {
               width: 150, // Adjust the width as needed
               height: 150, // Adjust the height as needed
               fit: BoxFit.cover, // Adjust the fit as needed
-
             ),
             ElevatedButton(
               onPressed: () {
-
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Homepage()),
+                );
               },
               child: const Text('Check out Users'),
             ),
