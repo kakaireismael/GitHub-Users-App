@@ -1,0 +1,155 @@
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:share/share.dart';
+// import 'package:share_plus/share_plus.dart';
+
+
+class UserProfile extends StatelessWidget {
+  final Map user;
+
+  const UserProfile({super.key, required this.user});
+
+  Future<Map<String, dynamic>> fetchUserDetails(String username) async {
+    final response = await http.get(Uri.parse('https://api.github.com/users/$username'));
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to load user details');
+    }
+  }
+  //
+  // void shareDetails(){
+  //   final String details = 'Check out this Github User:\n\n '
+  //       'Name: ${userDetails['login']}'
+  //       'Email: ${userDetails['email']}'
+  //       'Followers: ${userDetails['followers']}'
+  //
+  //       Share.share(details);
+  //
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Map<String, dynamic>>(
+      future: fetchUserDetails(user['login']),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return
+
+            Scaffold(
+              appBar: AppBar(
+                title: Text(user['login']),
+                backgroundColor: Colors.orangeAccent,
+              ),
+              body: const Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+        } else if (snapshot.hasError) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(user['login']),
+              backgroundColor: Colors.orangeAccent,
+            ),
+            body: Center(
+              child: Text('Error: ${snapshot.error}'),
+            ),
+          );
+        } else if (!snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(user['login']),
+              backgroundColor: Colors.orangeAccent,
+            ),
+            body: const Center(
+              child: Text('No data found'),
+            ),
+          );
+        } else {
+          final userDetails = snapshot.data!;
+          return Scaffold(
+            appBar: AppBar(
+
+              title: Text(userDetails['login']),
+              backgroundColor: Colors.orangeAccent,
+
+              actions: [
+                IconButton(icon: const Icon(Icons.share),
+                  onPressed: (){
+                    Share.share(userDetails['html_url']);
+                  },
+                ),
+              ],
+            ),
+            body: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ClipOval(
+
+                      child: Container(
+                        color: Colors.orangeAccent,
+                        // width: double.infinity,
+                        child: SizedBox(
+                          width: 180,
+                          height: 180,
+                          child: Image.network(userDetails['avatar_url'], fit: BoxFit.cover),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 25),
+                    Text(
+                      '${userDetails['login']}',
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height:12),
+
+                    Text(
+                      '${userDetails['location']}',
+                      style: const TextStyle(fontSize: 14 , ),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Email: ${userDetails['email']}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Type: ${userDetails['type']}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+
+
+                    Text(
+                      'Profile URL: ${userDetails['html_url']}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Followers: ${userDetails['followers']}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Following: ${userDetails['following']}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Public Repos: ${userDetails['public_repos']}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
+}
