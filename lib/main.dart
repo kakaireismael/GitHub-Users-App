@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'splash_screen.dart';
 import 'welcome_page.dart';
 import 'homepage.dart';
 import 'package:http/http.dart' as http;
 import 'user_profile.dart';
 import 'userlist.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -25,4 +28,3 @@ class MyApp extends StatelessWidget {
       );
   }
 }
-
