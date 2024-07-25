@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -39,8 +40,14 @@ class UserProfile extends StatelessWidget {
 
             Scaffold(
               appBar: AppBar(
-                title: Text(user['login']),
-                backgroundColor: Colors.orangeAccent,
+                backgroundColor: Colors.blue,
+                title: Text(user['login'],
+                style: const TextStyle(
+                  color: Colors.white,
+
+                )
+                ),
+
               ),
               body: const Center(
                 child: CircularProgressIndicator(),
@@ -49,8 +56,14 @@ class UserProfile extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(user['login']),
-              backgroundColor: Colors.orangeAccent,
+              backgroundColor: Colors.blue,
+              title: Text(user['login'],
+                  style: const TextStyle(
+                    color: Colors.white,
+
+                  )
+              ),
+
             ),
             body: Center(
               child: Text('Error: ${snapshot.error}'),
@@ -59,8 +72,14 @@ class UserProfile extends StatelessWidget {
         } else if (!snapshot.hasData) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(user['login']),
-              backgroundColor: Colors.orangeAccent,
+              backgroundColor: Colors.blue,
+              title: Text(user['login'],
+                  style: const TextStyle(
+                    color: Colors.white,
+
+                  )
+              ),
+
             ),
             body: const Center(
               child: Text('No data found'),
@@ -70,12 +89,20 @@ class UserProfile extends StatelessWidget {
           final userDetails = snapshot.data!;
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.blue,
+              title: Text(user['login'],
+                  style: const TextStyle(
+                    color: Colors.white,
 
-              title: Text(userDetails['login']),
-              backgroundColor: Colors.orangeAccent,
+                  )
+              ),
 
-              actions: [
-                IconButton(icon: const Icon(Icons.share),
+                          actions: [
+                          const BackButton(color: Colors.white),
+
+
+                            IconButton(icon: const Icon(Icons.share),color: Colors.white,
+
                   onPressed: (){
                     Share.share(userDetails['html_url']);
                   },
@@ -91,11 +118,11 @@ class UserProfile extends StatelessWidget {
                     ClipOval(
 
                       child: Container(
-                        color: Colors.orangeAccent,
+                        color: Colors.blue,
                         // width: double.infinity,
                         child: SizedBox(
-                          width: 180,
-                          height: 180,
+                          width: 140,
+                          height: 140,
                           child: Image.network(userDetails['avatar_url'], fit: BoxFit.cover),
                         ),
                       ),
