@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(height: 15), // Add spacing between texts
+              SizedBox(height: 5), // Add spacing between texts
               Text(
                 'Connecting Developers!',
                 style: TextStyle(
