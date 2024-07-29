@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:githubusers/features/presentation/screens/user_profile.dart';
-import 'features/presentation/screens/welcome_page.dart';
-import 'features/presentation/screens/homepage.dart';
+import 'package:githubusers/presentation/screens/homepage.dart';
+import 'package:githubusers/presentation/screens/user_profile.dart';
+import '/presentation/screens/welcome_page.dart';
 import 'package:http/http.dart' as http;
-import '../widgets/user_widget.dart';
-import 'package:githubusers/features/domain/entities/user.dart';
-import 'package:githubusers/features/presentation/widgets/infinite_scroll.dart';
-import 'package:githubusers/features/presentation/widgets/splash_screen.dart';
+import 'package:githubusers/domain/entities/user.dart';
+import 'package:githubusers/presentation/widgets/infinite_scroll_pagination.dart';
+import 'package:githubusers/presentation/widgets/splash_screen.dart';
+import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
+import 'data/datasources/remote/data_source.dart';
+import 'data/repository/user_repository_impl.dart';
+import 'domain/usecases/get_users_useCase.dart';
+import 'presentation/providers/user_provider.dart';
+
+
 
 
 void main() {
