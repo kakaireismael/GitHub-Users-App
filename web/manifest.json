@@ -1,6 +1,6 @@
 {
-    "name": "githubusers",
-    "short_name": "githubusers",
+    "name": "git_user_app",
+    "short_name": "git_user_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

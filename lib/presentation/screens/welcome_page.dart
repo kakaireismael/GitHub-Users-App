@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:githubusers/presentation/screens/homepage.dart';
-import 'package:animations/animations.dart';
+import 'package:github_users_app/presentation/screens/homepage.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

@@ -1,28 +1,25 @@
-// lib/features/presentation/widgets/splash_screen.dart
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:githubusers/presentation/screens/welcome_page.dart';
-import 'package:githubusers/presentation/widgets/splash_screen.dart';
+import 'welcome_page.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+
+class SplashScreenPage extends StatefulWidget {
+  const SplashScreenPage({super.key});
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _SplashScreenPageState createState() => _SplashScreenPageState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenPageState extends State<SplashScreenPage> {
   @override
   void initState() {
     super.initState();
-    _navigateToHome();
-  }
-
-  _navigateToHome() async {
-    await Future.delayed(const Duration(seconds: 5), () {});
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const WelcomePage()),
-    );
+    Timer(const Duration(seconds: 5), () {
+      if (mounted) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const WelcomePage()));
+      }
+    });
   }
 
   @override
@@ -46,12 +43,12 @@ class _SplashScreenState extends State<SplashScreen> {
               Text(
                 'Connecting Developers!',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16, fontStyle: FontStyle.italic,
                   color: Colors.white,
                 ),
               ),
               Center(
-                child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white))
+                  child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white))
 
               )
             ],
