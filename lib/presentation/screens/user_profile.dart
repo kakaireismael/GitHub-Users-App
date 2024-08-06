@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:share/share.dart';
+import 'user_profile.dart';
 // import 'package:share_plus/share_plus.dart';
 
 
@@ -9,6 +11,7 @@ class UserProfile extends StatelessWidget {
   final Map user;
 
   const UserProfile({super.key, required this.user});
+
 
   Future<Map<String, dynamic>> fetchUserDetails(String username) async {
     final response = await http.get(Uri.parse('https://api.github.com/users/$username'));
@@ -39,18 +42,30 @@ class UserProfile extends StatelessWidget {
 
             Scaffold(
               appBar: AppBar(
-                title: Text(user['login']),
-                backgroundColor: Colors.orangeAccent,
+                backgroundColor: Colors.blue,
+                title: Text(user['login'],
+                style: const TextStyle(
+                  color: Colors.white,
+
+                )
+                ),
+
               ),
               body: const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.blue)),
               ),
             );
         } else if (snapshot.hasError) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(user['login']),
-              backgroundColor: Colors.orangeAccent,
+              backgroundColor: Colors.blue,
+              title: Text(user['login'],
+                  style: const TextStyle(
+                    color: Colors.white,
+
+                  )
+              ),
+
             ),
             body: Center(
               child: Text('Error: ${snapshot.error}'),
@@ -59,8 +74,15 @@ class UserProfile extends StatelessWidget {
         } else if (!snapshot.hasData) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(user['login']),
-              backgroundColor: Colors.orangeAccent,
+              backgroundColor: Colors.blue,
+              title: Text(user['login'],
+                  style: const TextStyle(
+                    color: Colors.white,
+
+
+                  )
+              ),
+
             ),
             body: const Center(
               child: Text('No data found'),
@@ -70,12 +92,21 @@ class UserProfile extends StatelessWidget {
           final userDetails = snapshot.data!;
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.blue,
+              title: Text(user['login'],
+                  style: const TextStyle(
+                    color: Colors.white,
 
-              title: Text(userDetails['login']),
-              backgroundColor: Colors.orangeAccent,
+                  )
+              ),
 
-              actions: [
-                IconButton(icon: const Icon(Icons.share),
+                          actions: [
+                          const BackButton(color: Colors.white,
+                          style: ButtonStyle(alignment: Alignment.topLeft),),
+
+
+                            IconButton(icon: const Icon(Icons.share),color: Colors.white,
+
                   onPressed: (){
                     Share.share(userDetails['html_url']);
                   },
@@ -84,31 +115,35 @@ class UserProfile extends StatelessWidget {
             ),
             body: Center(
               child: Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(30.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: <Widget>[
                     ClipOval(
 
                       child: Container(
-                        color: Colors.orangeAccent,
-                        // width: double.infinity,
+                        color: Colors.blue,
+                        //width: double.infinity,
                         child: SizedBox(
-                          width: 180,
-                          height: 180,
+                          width: 140,
+                          height: 140,
                           child: Image.network(userDetails['avatar_url'], fit: BoxFit.cover),
                         ),
                       ),
                     ),
                     const SizedBox(height: 25),
                     Text(
-                      '${userDetails['login']}',
+                      'Username: ${userDetails['login']}',
                       style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height:12),
-
+                    const SizedBox(height: 12),
                     Text(
-                      '${userDetails['location']}',
+                      'Name: ${userDetails['name']}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    const SizedBox(height:12),
+                    Text(
+                      'Location: ${userDetails['location']}',
                       style: const TextStyle(fontSize: 14 , ),
                     ),
                     const SizedBox(height: 12),
@@ -118,13 +153,7 @@ class UserProfile extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      'Type: ${userDetails['type']}',
-                      style: const TextStyle(fontSize: 14),
-                    ),
-
-
-                    Text(
-                      'Profile URL: ${userDetails['html_url']}',
+                      'User Type: ${userDetails['type']}',
                       style: const TextStyle(fontSize: 14),
                     ),
                     const SizedBox(height: 12),
@@ -139,8 +168,22 @@ class UserProfile extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      'Public Repos: ${userDetails['public_repos']}',
+                      'Public Repositories: ${userDetails['public_repos']}',
                       style: const TextStyle(fontSize: 14),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Blog: ${userDetails['blog']}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Bio: ${userDetails['bio']}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    Text(
+                      'Profile URL: ${userDetails['html_url']}',
+                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                     ),
 
                   ],
@@ -152,4 +195,6 @@ class UserProfile extends StatelessWidget {
       },
     );
   }
+
+
 }

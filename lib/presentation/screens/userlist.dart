@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'user_models.dart';
+import '../../Domain/usecases/user_models.dart';
 
 mixin UserService {
   final String apiUrl = 'https://api.github.com/users/';
