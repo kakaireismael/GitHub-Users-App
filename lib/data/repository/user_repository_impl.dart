@@ -10,7 +10,7 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<List<User>> getUsers(
-      String? location, String? name, int page, int pageSize) async {
+      String? bio, String? location, String? name, int page, int pageSize) async {
     List<UserModel> userModels =
         await _dataSource.fetchUsersByLocation(location, name, page, pageSize);
 

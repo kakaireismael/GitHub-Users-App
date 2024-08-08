@@ -8,7 +8,7 @@ This GitHub Users App is a flutter designed application to enable any computer a
 The main objective of this App is to enable users to search and get access to their profiles. The App provides users a simple, convenient, secure and efficient way to connect to millions of GitHub users across the world. 
 
 By entering a user's GitHub username or location by country into the "GitHub Users search bar, you can find that user's profile information as well as links to their GitHub account. Every time you type something, the application will send a request to the GitHub API to search for the username you just typed, and any users who match the query will have their information displayed. 
-The GitHub Users App is an easy to user and friendly application that makes it easy for you to discover other GitHub users based on their GitHub username or location. Any user simply types in the location (to search by user location e.g. Uganda) of the user or by using search user by username (e.g. kakaireismael) into the search box, and you'll be presented with information about the user you searched and view user profile and the link to view GitHub User account.
+The GitHub Users App is an easy to user and friendly application that makes it easy for you to discover other GitHub users based on their GitHub username or location. Any user simply types in the location (to search by user location e.g. Uganda) of the user or by using search user by username (e.g. kakaireismael) into the search box, and you'll be presented with information about the user you searched and view user profile and the link to view the respective GitHub User account.
 
 
 ## App Features
@@ -26,7 +26,7 @@ The information include User profile picture, location, email address, user cate
     This feature allows you to share user profile to other social media apps such as WhatsApp, Facebook, Gmail and many more. You simply click on the share button located at the top right corner of the App Bar.
 
 -	### Infinite Scroll Pagination
-     This enhanced user experience and interaction feature enables you to continuously scroll through a list of GitHub users displayed on the screen as it loads and retrieves more users. As the user scrolls down, more GitHub Users are dynamically loaded, creating a seamless browsing experience.
+     This enhanced user experience and interaction feature enables the App user to continuously scroll through a list of GitHub users displayed on the screen as it loads and retrieves more users. As the user scrolls down, more GitHub Users are dynamically loaded, creating a seamless browsing experience.
 
 -	### Internet Connectivity Check
     This feature checks and handles internet connectivity with prompts to guide user on how to get connected. It helps to check and manage internet connectivity and network requests effectively. It can check the status of the internet connection (Wi-Fi, Mobile data, or offline mode)
@@ -48,18 +48,9 @@ To run this application, ensure to have the following tools installed and runnin
 -	Flutter plugin
 -	Fast development machine (e.g. a desktop computer or a laptop)
 -	Dart plugin
--	Flutter dependencies such as;
+-	Flutter dependencies 
 
-	-     http: ^1.2.1
-    -     provider: ^6.1.2
-    -     share: ^2.0.4
-    -	  json_annotation: ^4.9.0
-    -     url_launcher: ^6.3.0
-    -     infinite_scroll_pagination: ^4.0.0
-    -     connectivity_plus : ^2.3.0
-    -     shared_preferences : ^2.0.9
-    -	  device_info_plus: ^9.0.0
-    -     android_intent_plus: ^3.0.1
+	
 
 
 ## Installation
@@ -159,7 +150,7 @@ Below are some screenshots of the application.
 <img src="assets/screen_shots/homepage.png" alt="Home Page" width="300" height= "667"/>
 
 ### Search User by Location
-<img src = "assets/locscr.png" alt = "Search Location" width = "300" height= "667"/>
+<img src = "assets/screen_shots/search_by_location.png" alt = "Search Location" width = "300" height= "667"/>
 
 ### Search User by Username
 <img src="assets/screen_shots/search_by_username.png" alt="Search User" width="300" height= "667"/>
@@ -167,7 +158,7 @@ Below are some screenshots of the application.
 ### User Profile Screen
 <img src="assets/screen_shots/user_profile.png" alt="User Profile" width="300" height= "667"/>
 
-### Share Profile
+### Share User Profile
 <img src="assets/screen_shots/share_user_profile.png" alt="Share Profile" width="300" height= "667"/>
 
 ### Internet Connectivity Check

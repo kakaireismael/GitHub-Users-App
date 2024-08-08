@@ -3,5 +3,5 @@ import 'package:github_users_app/domain/entities/user.dart';
 
 abstract class UserRepository {
   Future<List<User>> getUsers(
-      String? location, String? name, int page, int pageSize);
+      String? bio, String? location, String? name, int page, int pageSize);
 }
