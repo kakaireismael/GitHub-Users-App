@@ -1,4 +1,4 @@
-package com.example.githubusers
+package com.example.git_user_app
 
 import io.flutter.embedding.android.FlutterActivity
 

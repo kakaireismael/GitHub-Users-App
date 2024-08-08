@@ -1,21 +1,22 @@
 import 'package:flutter/foundation.dart';
-import 'package:githubusers/domain/entities/user_entity.dart';
-import 'package:githubusers/domain/usecases/get_users_useCase.dart';
+import 'package:github_users_app/domain/entities/user.dart';
+import 'package:github_users_app/domain/use_cases/get_users_useCase.dart';
 
 class UserProvider extends ChangeNotifier {
   final GetUsersUseCase _getUsersUseCase;
 
   UserProvider(this._getUsersUseCase);
 
-  List<UserEntity> _users = [];
-  final List<UserEntity> _originalUsers = [];
+  List<User> _users = [];
+  final List<User> _originalUsers = [];
   bool _isLoading = false;
   bool _hasSearched = false;
   bool _hasMore = true;
   String? _location;
   String? _name;
 
-  List<UserEntity> get users => _users;
+
+  List<User> get users => _users;
 
   bool get isLoading => _isLoading;
 
@@ -23,7 +24,7 @@ class UserProvider extends ChangeNotifier {
 
   bool get hasMore => _hasMore;
 
-  static const _pageSize = 20;
+  static const _pageSize = 30;
   int _currentPage = 0;
 
   void setLocation(String location) {
@@ -55,16 +56,20 @@ class UserProvider extends ChangeNotifier {
       _currentPage++;
       _hasMore = newUsers.length == _pageSize;
       _setHasSearched(true);
-      print("real: $newUsers");
+      if (kDebugMode) {
+        print("real: $newUsers");
+      }
     } catch (e) {
       _hasMore = false;
-      print('Error fetching users22: $e');
+      if (kDebugMode) {
+        print('Error fetching users22: $e');
+      }
     }
     _setLoading(false);
     notifyListeners();
   }
 
-  void _setUsers(List<UserEntity> users) {
+  void _setUsers(List<User> users) {
     _users = users;
     notifyListeners();
   }

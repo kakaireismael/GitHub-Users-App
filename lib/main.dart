@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:githubusers/presentation/screens/homepage.dart';
-import 'package:githubusers/presentation/screens/user_profile.dart';
-import '/presentation/screens/welcome_page.dart';
-import 'package:http/http.dart' as http;
-import 'package:githubusers/domain/entities/user.dart';
-import 'package:githubusers/presentation/widgets/infinite_scroll_pagination.dart';
-import 'package:githubusers/presentation/widgets/splash_screen.dart';
-import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
-import 'data/datasources/remote/data_source.dart';
-import 'data/repository/user_repository_impl.dart';
-import 'domain/usecases/get_users_useCase.dart';
-import 'presentation/providers/user_provider.dart';
-
-
+import 'package:github_users_app/data/repository/user_profile_rep_imp.dart';
+import 'package:github_users_app/domain/use_cases/user_details_useCase.dart';
+import '/data/dataSources/remote/data_source.dart';
+import '/domain/use_cases/get_users_useCase.dart';
+import '/presentation/providers/user_provider.dart';
+import '/data/repository/user_repository_impl.dart';
+import '/presentation/providers/user_profile_provider.dart';
+import '/presentation/providers/connectivity_provider.dart';
+import '/presentation/screens/splash_screen.dart';
+import '/data/datasources/remote/details_source.dart';
 
 
 void main() {
@@ -23,17 +18,34 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-  routes: <String, WidgetBuilder>{
-    '/': (context) => const SplashScreen(),
-    '/second': (context) => const WelcomePage(),
-    '/third': (context) => const HomePage(),
-     }
-      );
+    final dataSource = DataSource();
+    final userRepository = UserRepositoryImpl(dataSource);
+    final getUsersUseCase = GetUsersUseCase(userRepository);
+
+    final detailsSource = DetailsSource();
+    final userProfileRep = UserprofileRepImp(detailsSource);
+    final userDetailsUseCase = UserDetailsUseCase(userProfileRep);
+
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (context) => UserProvider(getUsersUseCase)),
+        ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
+        ChangeNotifierProvider(
+            create: (_) => UserProfileProvider(userDetailsUseCase)),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'GitHub Users App',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFFFFFFF)),
+          useMaterial3: true,
+        ),
+        home: const SplashScreenPage(),
+      ),
+    );
   }
 }

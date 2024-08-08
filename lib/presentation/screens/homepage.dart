@@ -1,182 +1,186 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show AppBar, BorderRadius, BuildContext, CircleAvatar, CircularProgressIndicator, Colors, Column, Container, EdgeInsets, Expanded, GestureDetector, Icon, IconButton, Icons, InputDecoration, ListTile, ListView, MainAxisAlignment, MaterialApp, MaterialPageRoute, MediaQuery, MouseRegion, Navigator, NetworkImage, OutlineInputBorder, Padding, Scaffold, SizedBox, State, StatefulWidget, Text, TextEditingController, TextField, TextStyle, Widget;
-import 'package:githubusers/presentation/screens/user_profile.dart';
-import 'package:githubusers/presentation/widgets/infinite_scroll_pagination.dart';
-import '/presentation/widgets/infinite_scroll_pagination.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' show json;
+import 'package:flutter/material.dart';
+import 'package:github_users_app/presentation/providers/user_provider.dart';
+import 'package:github_users_app/presentation/widget/user_card.dart';
+import 'package:github_users_app/presentation/providers/connectivity_provider.dart';
+import 'package:provider/provider.dart';
+import '../widget/connectivity.dart';
+import '../widget/connectivity.dart';
 
-import '../../Domain/entities/user.dart';
-// import 'package:url_launcher/url_launcher.dart'
-
-class HomePage extends StatefulWidget{
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+
+  final ScrollController _scrollController = ScrollController();
+  static const double _scrollThreshold = 200.0;
+
+  bool hasSearched = false;
+  int _page = 0;
 
   @override
-  State<HomePage> createState() => _HomePageState ();
-}
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        Provider.of<UserProvider>(context, listen: false)
+            .fetchUsers('', '', _page, 20);
+      },
+    );
 
-class _HomePageState  extends State<HomePage>{
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - _scrollThreshold) {
+        final userProvider = Provider.of<UserProvider>(context, listen: false);
 
-  final TextEditingController _controller = TextEditingController();
-  List _users = [];
-  bool _hasSearched = false;
-
-  Future<void> _launchURL(String url) async{
-  final response = await http.get(Uri.parse(url));
-  //
-  if (response.statusCode == 200){
-  //
-   }
-   }
-
-@override
-void initState(){
-  super.initState();
-  _searchUsers('');
-
-
-}
-  Future<void> _searchUsers(String query) async {
-
-    if (query.isEmpty){
-      if (kDebugMode) {
-        print('Searching');
+        userProvider.setHasMore(true);
+        userProvider.fetchUsers(_locationController.text, '', ++_page, 20);
       }
-    }
-    // final response = await http.get(Uri.parse("https://api.github.com/search/users?q=location:{location}"));
-    final response = await http.get(Uri.parse("https://api.github.com/search/users?q=location:$query"));
-    //final response = await http.get(Uri.parse("https://api.github.com/search/users?q=$query"));
-    if (kDebugMode) {
-      print(response);
-    }
-
-    if (response.statusCode == 200){
-      final data = json.decode(response.body);
-      if (kDebugMode) {
-        print(response);
-      }
-      setState(() {
-        _users = data['items'] ?? [];
-        _hasSearched = true;
-      });
-    } else {
-      //throw Exception('Failed to load users');
-    }
+    });
   }
-
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    final connectivityProvider = Provider.of<ConnectivityProvider>(context);
 
-    return MaterialApp(
-      debugShowCheckedModeBanner : false,
-
+    if (!connectivityProvider.isConnected) {
+      return connectivityWidget(context);
+    }
+        return MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
-        appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: Colors.blue,
-        title: const Text(
-        'Search for GitHub Users',
-          style: TextStyle(
-          color: Colors.white,
 
 
-          ),
-    )
+          backgroundColor: Colors.white,
+          body: Column(
+            children: <Widget>[
+              Image.asset("assets/github_bg.webp",
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: 100.0,
+
+                ),
+
+              Container(
 
 
-    ),
-
-
-        body: Container(
-          alignment: Alignment.center,
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget> [
-
-              const SizedBox(height: 40.0),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.80,
-                height: MediaQuery.of(context).size.height * 0.12,
-                child: TextField(
-                  controller: _controller,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50.0)
-                      ),
-                      hintText: 'Search by Country',
-                      hintStyle: const TextStyle(color: Colors.grey),
-                      suffixIcon: IconButton( onPressed: (){
-                        _searchUsers(_controller.text);
-                      }, icon: const Icon(Icons.search)
-                        ,)
+                padding: const EdgeInsets.only(top: 18.0, bottom: 18.0),
+                alignment: Alignment.center,
+                color: const Color(0xFF2196F3),
+                width: double.infinity,
+                child: const Text(
+                  'Search for GitHub Users',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
               ),
+              Padding(
+                  padding: const EdgeInsets.only(
+                      left: 10.0, top: 10.0, right: 10.0, bottom: 10.0),
+                  child: Row(children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _locationController,
+                        decoration: InputDecoration(
+                            labelText: 'Search by user location',
+                            labelStyle: const TextStyle(fontSize: 14.0, color: Colors.black),
 
 
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(4.0)
+                              ),
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                            suffixIcon: IconButton(
+                                icon: const Icon(
+                                  Icons.search,
+                                  color: Colors.black,
+                                  size: 25,
+                                ),
+                                onPressed: () {
+                                  _locationController.clear();
+                                  userProvider.clearFiltersAndSearch();
+                                })),
+                        onSubmitted: (value) {
+                          userProvider.setLocation(value);
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    Expanded(
+                      child: TextField(
+                          controller: _nameController,
+                          decoration: InputDecoration(
+                              labelText: 'Search by username',
+                              labelStyle: const TextStyle(fontSize: 14.0, color: Colors.black),
+                              enabledBorder: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(4.0),
+
+                                ),
+                                borderSide: BorderSide(
+                                  color: Colors.black,
+
+                                ),
+                              ),
+                              suffixIcon: IconButton(
+                                  icon: const Icon(Icons.search,
+                                      color: Colors.black, size: 25),
+                                  onPressed: () {
+                                    _nameController.clear();
+                                    userProvider.clearFiltersAndSearch();
+                                  })),
+                          onSubmitted: (value) {
+                            userProvider.setName(value);
+                          }),
+                    ),
+                  ])),
               Expanded(
-                  child: _hasSearched && _users.isNotEmpty ? listOfNames()
-                      : const Column(
-                     mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Loading Users"),
-                          SizedBox(height: 20.0,),
-                          CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.blue)),
-                        ],
-                      )),
-
-
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 20.0, top: 0.0, right: 20.0, bottom: 20.0),
+                  child: userProvider.isLoading
+                      ? const Center(
+                    child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.blue)),
+                        )
+                      : userProvider.hasSearched ||
+                              userProvider.users.isNotEmpty
+                          ? ListView.builder(
+                              controller: _scrollController,
+                              itemCount: userProvider.users.length,
+                              itemBuilder: (context, index) {
+                                if (kDebugMode) {
+                                  print(
+                                    'List length: ${userProvider.users.length}, Current index: $index');
+                                }
+                                return userCard(context, index);
+                              }
+                              )
+                          : const Center(
+                              child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.blue)),
+                            ),
+                ),
+              ),
             ],
           ),
-        ),
-
-      ),
-
-    );
-
-  }
-  Widget listOfNames(){
-
-    return ListView.builder(
-      itemBuilder: (context, index){
-        return MouseRegion(
-          onEnter: (event){
-            setState(() {
-              _users[index]['isHovered'] = true;
-
-            });
-          },
-          onExit: (event) {
-            setState(() {
-              _users[index]['isHovered'] = false;
-            });
-          },
-          child: GestureDetector(
-            onTap: () {
-              // _launchURL(_users[index]['html_url']);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (counter)=> UserProfile(user: _users[index])
-                  ));
-            },
-            child: Container(
-              color: _users[index]['isHovered'] == true ? Colors.blue [30] : Colors.transparent,
-              child: ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(_users[index]['avatar_url']),
-                ),
-                title: Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Text(_users[index]['login']),
-                ),              ),
-            ),          ),
-          );
-        },
-    );
+        ));
   }
 
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _locationController.dispose();
+    _nameController.dispose();
+
+    super.dispose();
+  }
 }
