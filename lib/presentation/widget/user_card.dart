@@ -10,7 +10,7 @@ Widget userCard(context, index) {
   return Card(
       color: const Color(0xFFf4f4ff),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(08.0)),
-      margin: const EdgeInsets.symmetric(vertical: 5.0),
+      margin: const EdgeInsets.symmetric(vertical: 4.0),
       child: GestureDetector(
         onTap: () async {
           final userProfileProvider =

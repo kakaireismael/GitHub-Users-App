@@ -32,7 +32,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'GitHub Users',
+                'GitHub Users App',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,

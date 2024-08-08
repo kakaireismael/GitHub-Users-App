@@ -91,6 +91,8 @@ flutter:
     - assets/github.png
     - assets/github_bg.webp
     - assets/github_user_search.png
+    - assets/no_internet.gif
+    - assets/no_internet.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

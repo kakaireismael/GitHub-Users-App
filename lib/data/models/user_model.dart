@@ -10,6 +10,7 @@ class UserModel extends User {
     super.type,
     super.avatarUrl,
     super.blog,
+
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
@@ -22,6 +23,7 @@ class UserModel extends User {
       avatarUrl: avatarUrl,
       type: type,
       blog: blog,
+
     );
   }
 }
