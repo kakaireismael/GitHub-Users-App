@@ -1,7 +1,7 @@
 import 'package:github_users_app/data/datasources/remote/details_source.dart';
 import 'package:github_users_app/domain/entities/user_profile_entity.dart';
 import 'package:github_users_app/domain/repository/user_profile_rep.dart';
-import '../models/user_profile.dart';
+import '../models/user_profile_model.dart';
 
 class UserprofileRepImp implements UserProfileRep {
   final DetailsSource _detailsSource;

@@ -10,6 +10,7 @@ import '/presentation/providers/user_profile_provider.dart';
 import '/presentation/providers/connectivity_provider.dart';
 import '/presentation/screens/splash_screen.dart';
 import '/data/datasources/remote/details_source.dart';
+import '/presentation/providers/services/api_service.dart';
 
 
 void main() {
