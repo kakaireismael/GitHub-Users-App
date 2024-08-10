@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../../models/user_profile.dart';
+import '../../models/user_profile_model.dart';
 
 class DetailsSource {
   Future<UserProfileModel> fetchUserDetails(String username) async {

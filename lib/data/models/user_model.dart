@@ -1,6 +1,6 @@
 import 'package:github_users_app/domain/entities/user.dart';
 import 'package:json_annotation/json_annotation.dart';
-part "user_model_json_sg.dart";
+part "user_model.g.dart";
 
 @JsonSerializable()
 class UserModel extends User {

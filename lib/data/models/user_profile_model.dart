@@ -1,5 +1,9 @@
 import 'package:github_users_app/domain/entities/user_profile_entity.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'user_profile_model.g.dart';
+
+@JsonSerializable()
 class UserProfileModel extends UserProfileEntity {
   const UserProfileModel({
     super.login,
@@ -14,27 +18,16 @@ class UserProfileModel extends UserProfileEntity {
     super.followers,
     super.following,
     super.blog,
-
   });
 
-  factory UserProfileModel.fromJson(Map<String, dynamic> map) {
-    return UserProfileModel(
-      login: map['login'] ?? "",
-      name: map['name'] ?? "",
-      htmlUrl: map['html_url'] ?? "",
-      bio: map['bio'] ?? '',
-      publicRepos: map['public_repos'] ?? 0,
-      location: map['location'] ?? '',
-      type: map['type'] ?? '',
-      email: map['email'] ?? "",
-      avatarUrl: map['avatar_url'] ?? "",
-      followers: map['followers'] ?? 0,
-      following: map['following'] ?? 0,
-      blog: map['blog'] ?? '',
+  // Factory method for creating a new `UserProfileModel` instance from a map.
+  factory UserProfileModel.fromJson(Map<String, dynamic> map) =>
+      _$UserProfileModelFromJson(map);
 
-    );
-  }
+  // Method to convert the `UserProfileModel` instance to a map.
+  Map<String, dynamic> toJson() => _$UserProfileModelToJson(this);
 
+  // Method to convert `UserProfileModel` to `UserProfileEntity`.
   UserProfileEntity toProfileEntity() {
     return UserProfileEntity(
       login: login,
@@ -49,7 +42,6 @@ class UserProfileModel extends UserProfileEntity {
       followers: followers,
       following: following,
       blog: blog,
-
     );
   }
 }
