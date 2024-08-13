@@ -10,15 +10,15 @@ UserProfileModel _$UserProfileModelFromJson(Map<String, dynamic> json) =>
     UserProfileModel(
       login: json['login'] as String?,
       name: json['name'] as String?,
-      email: json['email'] as String?,
-      htmlUrl: json['htmlUrl'] as String?,
+      htmlUrl: json['html_url'] as String?,
+      publicRepos: (json['public_repos'] as num?)?.toInt(),
       type: json['type'] as String?,
-      bio: json['bio'] as String?,
-      location: json['location'] as String?,
-      publicRepos: (json['publicRepos'] as num?)?.toInt(),
-      avatarUrl: json['avatarUrl'] as String?,
+      avatarUrl: json['avatar_url'] as String?,
       followers: (json['followers'] as num?)?.toInt(),
+      location: json['location'] as String?,
+      email: json['email'] as String?,
       following: (json['following'] as num?)?.toInt(),
+      bio: json['bio'] as String?,
       blog: json['blog'] as String?,
     );
 

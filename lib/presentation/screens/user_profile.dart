@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:github_users_app/presentation/widget/connectivity.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../../../utils/launch_url.dart';
 import 'package:github_users_app/domain/entities/user_profile_entity.dart';
 import '../providers/connectivity_provider.dart';

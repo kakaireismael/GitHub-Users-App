@@ -5,10 +5,17 @@ part "user_model.g.dart";
 @JsonSerializable()
 class UserModel extends User {
   const UserModel({
+    super.login,
     super.name,
-    super.url,
+    super.htmlUrl,
+    super.publicRepos,
     super.type,
     super.avatarUrl,
+    super.followers,
+    super.location,
+    super.email,
+    super.following,
+    super.bio,
     super.blog,
 
   });
@@ -19,9 +26,17 @@ class UserModel extends User {
 
   User toEntity() {
     return User(
+      login: login,
       name: name,
-      avatarUrl: avatarUrl,
+      htmlUrl: htmlUrl,
+      publicRepos: publicRepos,
       type: type,
+      avatarUrl: avatarUrl,
+      followers: followers,
+      location: location,
+      email: email,
+      following: following,
+      bio: bio,
       blog: blog,
 
     );

@@ -14,7 +14,9 @@ class UserProvider extends ChangeNotifier {
   bool _hasMore = true;
   String? _location;
   String? _name;
-  String? _bio;
+  String? _email;
+
+
 
 
   List<User> get users => _users;
@@ -46,7 +48,7 @@ class UserProvider extends ChangeNotifier {
       String? location, String? name, int page, int pageSize) async {
     try {
       final newUsers = await _getUsersUseCase.execute(
-          _bio, _location, _name, _currentPage, _pageSize);
+          _email, _location, _name, _currentPage, _pageSize);
 
       final existingUserIds = _users.map((user) => user.name).toSet();
       final uniqueNewUsers = newUsers
