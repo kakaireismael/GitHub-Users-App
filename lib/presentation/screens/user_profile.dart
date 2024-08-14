@@ -5,6 +5,8 @@ import 'package:share_plus/share_plus.dart';
 import '../../../../utils/launch_url.dart';
 import 'package:github_users_app/domain/entities/user_profile_entity.dart';
 import '../providers/connectivity_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class UserProfile extends StatelessWidget {
   final UserProfileEntity user;
@@ -188,7 +190,7 @@ class UserProfile extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  launchUrlInBrowser(user.htmlUrl ?? "");
+                  _launchURL(user.htmlUrl ?? "");
                 },
                 style: TextButton.styleFrom(
                     surfaceTintColor: Colors.orangeAccent,
@@ -211,3 +213,12 @@ class UserProfile extends StatelessWidget {
     );
   }
 }
+
+Future<void> _launchURL(String url) async {
+  final Uri _url = Uri.parse(url);
+
+  if (!await launchUrl(_url)) {
+    throw 'Could not launch $_url';
+  }
+}
+

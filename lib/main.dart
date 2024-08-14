@@ -12,6 +12,8 @@ import '/presentation/screens/splash_screen.dart';
 import '/data/datasources/remote/details_source.dart';
 import '/presentation/providers/services/api_service.dart';
 import 'package:github_users_app/core/di/service_locator.dart';  // Import the service locator
+import 'package:url_launcher/url_launcher.dart';
+
 
 void main() {
   setupLocator();  // Initialize get_it
