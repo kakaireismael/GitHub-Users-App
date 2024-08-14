@@ -11,32 +11,28 @@ import '/presentation/providers/connectivity_provider.dart';
 import '/presentation/screens/splash_screen.dart';
 import '/data/datasources/remote/details_source.dart';
 import '/presentation/providers/services/api_service.dart';
-
+import 'package:github_users_app/core/di/service_locator.dart';  // Import the service locator
 
 void main() {
+  setupLocator();  // Initialize get_it
   runApp(const MyApp());
 }
+
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final dataSource = DataSource();
-    final userRepository = UserRepositoryImpl(dataSource);
-    final getUsersUseCase = GetUsersUseCase(userRepository);
 
-    final detailsSource = DetailsSource();
-    final userProfileRep = UserprofileRepImp(detailsSource);
-    final userDetailsUseCase = UserDetailsUseCase(userProfileRep);
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-            create: (context) => UserProvider(getUsersUseCase)),
-        ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
-        ChangeNotifierProvider(
-            create: (_) => UserProfileProvider(userDetailsUseCase)),
+        ChangeNotifierProvider(create: (context) => getIt<UserProvider>()),
+        ChangeNotifierProvider(create: (context) => getIt<ConnectivityProvider>()),
+        ChangeNotifierProvider(create: (context) => getIt<UserProfileProvider>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
