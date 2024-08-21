@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:github_users_app/presentation/widget/connectivity.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import '../../../../utils/launch_url.dart';
 import 'package:github_users_app/domain/entities/user_profile_entity.dart';
 import '../providers/connectivity_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -215,10 +214,10 @@ class UserProfile extends StatelessWidget {
 }
 
 Future<void> _launchURL(String url) async {
-  final Uri _url = Uri.parse(url);
+  final Uri url0 = Uri.parse(url);
 
-  if (!await launchUrl(_url)) {
-    throw 'Could not launch $_url';
+  if (!await launchUrl(url0)) {
+    throw 'Could not launch $url0';
   }
 }
 

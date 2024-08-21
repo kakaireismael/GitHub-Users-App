@@ -15,7 +15,7 @@ Widget connectivityWidget(BuildContext context) {
       iconTheme: const IconThemeData(color: Colors.white),
     ),
     body: Container(
-      color: Colors.white, // Set background color for the whole screen
+      color: Colors.white,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -23,12 +23,12 @@ Widget connectivityWidget(BuildContext context) {
           children: [
             const SizedBox(height: 20),
             Image.asset(
-              'assets/no_internet.gif', // Ensure this path is correct
-              width: 250, // Adjust the width as needed
-              height: 250, // Adjust the height as needed
-              fit: BoxFit.contain, // Adjust the fit as needed
+              'assets/no_internet.gif',
+              width: 250,
+              height: 250,
+              fit: BoxFit.contain,
             ),
-            const SizedBox(height: 20), // Space between image and text
+            const SizedBox(height: 20),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
               child: Text(
@@ -53,50 +53,50 @@ Widget connectivityWidget(BuildContext context) {
                 ),
               ),
             ),
-            const SizedBox(height: 20), // Space between text and button
+            const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                Connectivity().checkConnectivity().then((result) {
-                  if (result == ConnectivityResult.none) {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text(
-                            "Check your network cables, modem, routers, and Wi-Fi connection",
-                          ),
-                          content: const Text(
-                            "Please check your connection and try again.",
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text(
-                                "Cancel",
-                                style: TextStyle(color: Colors.black54),
-                              ),
+              onPressed: () async {
+                var connectivityResult = await Connectivity().checkConnectivity();
+                if (connectivityResult == ConnectivityResult.none) {
+                  if (!context.mounted) return; // Ensure context is valid
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text(
+                          "Check your network cables, modem, routers, and Wi-Fi connection",
+                        ),
+                        content: const Text(
+                          "Please check your connection and try again.",
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              "Cancel",
+                              style: TextStyle(color: Colors.black54),
                             ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                                openSettings();
-                              },
-                              child: const Text(
-                                "Internet Settings",
-                                style: TextStyle(color: Colors.black54),
-                              ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              openSettings();
+                            },
+                            child: const Text(
+                              "Internet Settings",
+                              style: TextStyle(color: Colors.black54),
                             ),
-                          ],
-                        );
-                      },
-                    );
-                  }
-                });
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue, // Button background color
+                backgroundColor: Colors.blue,
               ),
               child: const Text(
                 'Try Again',

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:github_users_app/presentation/screens/homepage.dart';
-import 'package:github_users_app/presentation/screens/login_screen_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -34,10 +33,10 @@ class WelcomePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 150),
                 Image.asset(
-                  'assets/github.png', // Replace with your image asset path
-                  width: 80, // Adjust the width as needed
-                  height: 80, // Adjust the height as needed
-                  fit: BoxFit.contain, // Adjust the fit as needed
+                  'assets/github.png',
+                  width: 80,
+                  height: 80,
+                  fit: BoxFit.contain,
                 ),
                 const SizedBox(height: 150),
                 ElevatedButton(

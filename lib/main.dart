@@ -4,10 +4,10 @@ import '/presentation/providers/user_provider.dart';
 import '/presentation/providers/user_profile_provider.dart';
 import '/presentation/providers/connectivity_provider.dart';
 import '/presentation/screens/splash_screen.dart';
-import 'package:github_users_app/core/di/service_locator.dart';  // Import the service locator
+import 'package:github_users_app/core/di/service_locator.dart';
 
 void main() {
-  setupLocator();  // Initialize get_it
+  setupLocator();
   runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {

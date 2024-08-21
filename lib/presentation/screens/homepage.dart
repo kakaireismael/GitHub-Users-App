@@ -163,13 +163,13 @@ class _HomePageState extends State<HomePage> {
                         onPressed: () {
                           _nameController.clear();
                           userProvider.clearFiltersAndSearch();
-                          setState(() {}); // Redraw to remove the icon
+                          setState(() {});
                         },
                       )
                           : null,
                     ),
                     onChanged: (value) {
-                      setState(() {}); // Redraw to update the icon
+                      setState(() {});
                     },
                     onSubmitted: (value) {
                       userProvider.setName(value);

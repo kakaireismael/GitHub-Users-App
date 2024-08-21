@@ -21,17 +21,3 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       blog: json['blog'] as String?,
     );
 
-Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
-      'login': instance.login,
-      'name': instance.name,
-      'htmlUrl': instance.htmlUrl,
-      'publicRepos': instance.publicRepos,
-      'type': instance.type,
-      'avatarUrl': instance.avatarUrl,
-      'followers': instance.followers,
-      'location': instance.location,
-      'email': instance.email,
-      'following': instance.following,
-      'bio': instance.bio,
-      'blog': instance.blog,
-    };
