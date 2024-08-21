@@ -18,10 +18,10 @@ class UserProfileEntity extends Equatable {
       {
         this.login,
         this.name,
-        this.avatarUrl,
         this.htmlUrl,
         this.publicRepos,
         this.type,
+        this.avatarUrl,
         this.followers,
         this.location,
         this.email,
@@ -35,15 +35,17 @@ class UserProfileEntity extends Equatable {
     return [
       login,
       name,
-      avatarUrl,
       htmlUrl,
-      bio,
+      publicRepos,
+      type,
+      avatarUrl,
+      followers,
       location,
       email,
       following,
-      publicRepos,
-      followers,
+      bio,
       blog,
+
     ];
   }
 }

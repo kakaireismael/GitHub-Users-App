@@ -14,48 +14,51 @@ Widget connectivityWidget(BuildContext context) {
       ),
       iconTheme: const IconThemeData(color: Colors.white),
     ),
-    body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 20),
-          Image.asset(
-            'assets/no_internet.png', // Replace with your image asset path
-            width: 200, // Adjust the width as needed
-            height: 200, // Adjust the height as needed
-            fit: BoxFit.contain, // Adjust the fit as needed
-          ),
-          const SizedBox(height: 20), // Space between image and text
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40.0),
-            child: Text(
-              'Oops! No Internet Connection!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 23.0,
-                fontWeight: FontWeight.bold,
+    body: Container(
+      color: Colors.white,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20),
+            Image.asset(
+              'assets/no_internet.gif',
+              width: 250,
+              height: 250,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40.0),
+              child: Text(
+                'Oops! No Internet Connection!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 23.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50.0),
-            child: Text(
-              'It seems there is something wrong with your internet connection. Please connect to the internet and try again.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black54,
-                fontSize: 16.0,
-                fontWeight: FontWeight.normal,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 50.0),
+              child: Text(
+                'It seems there is something wrong with your internet connection. Please connect to the internet and try again.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.normal,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 20), // Space between text and button
-          ElevatedButton(
-            onPressed: () {
-              Connectivity().checkConnectivity().then((result) {
-                if (result == ConnectivityResult.none) {
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async {
+                var connectivityResult = await Connectivity().checkConnectivity();
+                if (connectivityResult == ConnectivityResult.none) {
+                  if (!context.mounted) return; // Ensure context is valid
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -91,21 +94,21 @@ Widget connectivityWidget(BuildContext context) {
                     },
                   );
                 }
-              });
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue, // Button background color
-            ),
-            child: const Text(
-              'Try Again',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+              ),
+              child: const Text(
+                'Try Again',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ),
   );

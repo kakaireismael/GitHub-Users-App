@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:github_users_app/domain/entities/user_profile_entity.dart';
-import 'package:github_users_app/domain/use_cases/user_details_useCase.dart';
+import 'package:github_users_app/domain/use_cases/user_details_use_case.dart';
 
 class UserProfileProvider extends ChangeNotifier {
   final UserDetailsUseCase _userDetailsUseCase;

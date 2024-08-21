@@ -8,16 +8,17 @@ class UserProfileModel extends UserProfileEntity {
   const UserProfileModel({
     super.login,
     super.name,
-    super.email,
     super.htmlUrl,
-    super.type,
-    super.bio,
-    super.location,
     super.publicRepos,
+    super.type,
     super.avatarUrl,
     super.followers,
+    super.location,
+    super.email,
     super.following,
+    super.bio,
     super.blog,
+
   });
 
   // Factory method for creating a new `UserProfileModel` instance from a map.
